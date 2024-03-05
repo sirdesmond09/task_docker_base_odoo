@@ -8,10 +8,10 @@ class TestProductAddon(common.TransactionCase):
         product = self.env["product.template"].create({"name": "Test Product"})
         self.assertEqual(
             product.slug, "test/product"
-        )  # Assuming slugify logic converts to lowercase and replaces spaces with hyphens
+        ) 
 
         return
-    
+
     def test_unique_additional_barcode(self):
         product1 = self.env["product.template"].create(
             {"name": "Product 1", "additional_barcode": "123"}
@@ -22,6 +22,6 @@ class TestProductAddon(common.TransactionCase):
         with self.assertRaises(ValidationError):
             product2.write(
                 {"additional_barcode": "123"}
-            )  # Trying to set the same barcode for another product should raise an error
+            )  
 
         return
