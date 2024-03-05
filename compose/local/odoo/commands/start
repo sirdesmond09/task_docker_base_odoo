@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+### Run odoo backend.
+###
+### Usage:
+###     $ docker-compose -f <environment>.yml (exec |run --rm) odoo /start
+
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+
+odoo  --dev all --db_port=${POSTGRES_PORT} --db_password=${POSTGRES_PASSWORD} --db_user=${POSTGRES_USER} --db_host=${POSTGRES_HOST}

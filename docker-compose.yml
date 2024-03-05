@@ -1,0 +1,36 @@
+version: "3"
+
+volumes:
+  test_task_odoo_data: {}
+  test_task_postgres_data: {}
+
+services:
+  odoo:
+    build:
+      context: .
+      dockerfile: ./compose/local/odoo/Dockerfile
+    image: test_task_odoo
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - ./addons:/mnt/extra-addons
+      - test_task_odoo_data:/var/lib/odoo
+    env_file:
+      - ./.envs/.local/.odoo
+      - ./.envs/.local/.postgres
+    ports:
+      - "8069:8069"
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/local/postgres/Dockerfile
+    image: odoo_test_task_postgres
+    volumes:
+      - test_task_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.local/.postgres
+    ports:
+      - "5432:5432"

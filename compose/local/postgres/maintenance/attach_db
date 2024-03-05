@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+
+### Restore database from a backup.
+###
+### Usage:
+###     $ docker-compose -f <environment>.yml (exec |run --rm) postgres attach_db
+
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+
+working_dir="$(dirname ${0})"
+source "${working_dir}/_sourced/messages.sh"
+
+export PGHOST="${POSTGRES_HOST}"
+export PGPORT="${POSTGRES_PORT}"
+export PGUSER="${POSTGRES_USER}"
+export PGPASSWORD="${POSTGRES_PASSWORD}"
+export PGDATABASE="${POSTGRES_DB}"
+
+message_welcome "Access the '${POSTGRES_DB}' with psql"
+
+psql "${POSTGRES_DB}"

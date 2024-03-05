@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+### Init odoo DB.
+###
+### Usage:
+###     $ docker-compose -f <environment>.yml (exec |run --rm) odoo /init
+
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+
+odoo --db_port=${POSTGRES_PORT} --db_password=${POSTGRES_PASSWORD} --db_user=${POSTGRES_USER} --database=${POSTGRES_DB} --db_host=${POSTGRES_HOST} -i base --no-http --stop-after-init --without-demo=all
