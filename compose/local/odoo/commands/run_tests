@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+
+# Run Odoo tests
+odoo -d ${POSTGRES_DB} -i 'addons/product_addons' --test-enable --log-level=test
